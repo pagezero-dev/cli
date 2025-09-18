@@ -1,0 +1,66 @@
+name: 🚀 Validate
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+env:
+  # This reliably gets the branch name regardless of event type
+  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+
+jobs:
+  check:
+    name: 💎 Quality check
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout repo
+        uses: actions/checkout@v5
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v5
+        with:
+          node-version-file: .tool-versions
+
+      - name: ⎔ Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: .tool-versions
+
+      - name: 📦 Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: 💎 Quality check
+        run: bunx biome ci
+
+  types:
+    name: ʦ Types check
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout repo
+        uses: actions/checkout@v5
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v5
+        with:
+          node-version-file: .tool-versions
+
+      - name: ⎔ Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: .tool-versions
+
+      - name: 📦 Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: ʦ Types check
+        run: bun run check:types
