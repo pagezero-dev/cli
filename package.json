@@ -1,0 +1,17 @@
+{
+  "name": "cli",
+  "module": "index.ts",
+  "devDependencies": {
+    "@types/bun": "1.2.20",
+    "biome": "0.3.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "scripts": {
+    "check": "biome check",
+    "check:fix": "biome check --write",
+    "check:types": "tsc"
+  },
+  "type": "module"
+}
