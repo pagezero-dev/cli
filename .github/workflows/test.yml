@@ -1,4 +1,4 @@
-name: 🚀 Validate
+name: 🧪 Test
 
 on:
   push:
@@ -26,12 +26,12 @@ jobs:
       - name: 📥 Checkout repo
         uses: actions/checkout@v5
 
-      - name: ⎔ Setup node
+      - name: 🟢 Setup node
         uses: actions/setup-node@v5
         with:
           node-version-file: .tool-versions
 
-      - name: ⎔ Setup Bun
+      - name: 🥟 Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
           bun-version-file: .tool-versions
@@ -49,12 +49,12 @@ jobs:
       - name: 📥 Checkout repo
         uses: actions/checkout@v5
 
-      - name: ⎔ Setup node
+      - name: 🟢 Setup node
         uses: actions/setup-node@v5
         with:
           node-version-file: .tool-versions
 
-      - name: ⎔ Setup Bun
+      - name: 🥟 Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
           bun-version-file: .tool-versions
