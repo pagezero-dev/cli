@@ -30,7 +30,7 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: 🏷️ Set version
-        run: bun pm version from-git
+        run: bun pm version from-git --no-git-tag-version
 
       - name: 🚀 Publish
         run: bun publish
