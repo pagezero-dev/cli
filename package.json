@@ -1,17 +1,19 @@
 {
-  "name": "cli",
-  "module": "index.ts",
-  "devDependencies": {
-    "@biomejs/biome": "2.2.4",
-    "@types/bun": "1.2.20"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
+  "name": "pagezero",
+  "type": "module",
+  "bin": {
+    "pagezero": "./bin/pagezero.ts"
   },
   "scripts": {
     "check": "biome check",
     "check:fix": "biome check --write",
     "check:types": "tsc"
   },
-  "type": "module"
+  "devDependencies": {
+    "@biomejs/biome": "2.2.4",
+    "@types/bun": "1.2.20"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
 }
