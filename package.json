@@ -1,9 +1,31 @@
 {
   "name": "pagezero",
+  "description": "A CLI tool for PageZERO stack",
   "type": "module",
   "bin": {
     "pagezero": "./bin/pagezero.ts"
   },
+  "files": [
+    "bin/"
+  ],
+  "engines": {
+    "bun": ">=1.2.20"
+  },
+  "keywords": [
+    "cli",
+    "tool",
+    "pagezero"
+  ],
+  "author": "PageZERO <support@pagezero.dev>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pagezero-dev/pagezero.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pagezero-dev/pagezero/issues"
+  },
+  "homepage": "https://github.com/pagezero-dev/pagezero#readme",
   "scripts": {
     "check": "biome check",
     "check:fix": "biome check --write",
