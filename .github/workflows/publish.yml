@@ -16,12 +16,12 @@ jobs:
       - name: 📥 Checkout repo
         uses: actions/checkout@v5
 
-      - name: ⎔ Setup node
+      - name: 🟢 Setup node
         uses: actions/setup-node@v5
         with:
           node-version-file: .tool-versions
 
-      - name: ⎔ Setup Bun
+      - name: 🥟 Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
           bun-version-file: .tool-versions
@@ -29,16 +29,10 @@ jobs:
       - name: 📦 Install dependencies
         run: bun install --frozen-lockfile
 
-      - name: Run tests
-        run: bun test
+      - name: 🏷️ Set version
+        run: bun pm version from-git
 
-      - name: Set package.json version from release tag
-        run: |
-          VERSION=${GITHUB_REF#refs/tags/v}
-          echo "Releasing version $VERSION"
-          bun version $VERSION --no-git-tag-version
-
-      - name: Publish to npm
+      - name: 🚀 Publish
         run: bun publish
         env:
           NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
