@@ -20,12 +20,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pagezero-dev/pagezero.git"
+    "url": "git+https://github.com/pagezero-dev/cli.git"
   },
   "bugs": {
-    "url": "https://github.com/pagezero-dev/pagezero/issues"
+    "url": "https://github.com/pagezero-dev/cli/issues"
   },
-  "homepage": "https://github.com/pagezero-dev/pagezero#readme",
+  "homepage": "https://github.com/pagezero-dev/cli#readme",
   "scripts": {
     "check": "biome check",
     "check:fix": "biome check --write",
