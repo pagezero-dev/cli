@@ -23,19 +23,19 @@ async function init() {
   const projectName = await input({
     message: "What is the name of your project?",
   })
-  const creatingProjectSpinner = ora(`Bootstrapping ${projectName}...`).start()
-  await $`bun create pagezero-app --no-install ${projectName}`.quiet()
+  const creatingProjectSpinner = ora(
+    `Running: bun create pagezero-dev/pagezero --no-install ${projectName}`,
+  ).start()
+  await $`bun create pagezero-dev/pagezero --no-install ${projectName}`.quiet()
   creatingProjectSpinner.succeed()
 
   // Install dependencies
-  const installingDependenciesSpinner = ora(`Installing dependencies`).start()
+  const installingDependenciesSpinner = ora(`Running: bun install`).start()
   await $`cd ${projectName} && bun install`.quiet()
   installingDependenciesSpinner.succeed()
 
   // Run setup script
-  const runningSetupScriptSpinner = ora(
-    `Running setup script (bun run setup)`,
-  ).start()
+  const runningSetupScriptSpinner = ora(`Running: bun run setup`).start()
   await $`cd ${projectName} && bun run setup`.quiet()
   runningSetupScriptSpinner.succeed()
 
