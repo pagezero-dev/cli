@@ -9,20 +9,19 @@ program
   .description("PageZERO CLI")
   .option("-h, --help", "output usage information")
 
-program
-  .command("init")
-  .description("initialize a new project")
-  .action(async () => {
-    console.log(chalk.green("👋 Welcome to PageZERO CLI"))
-    console.log(chalk.green("🚀 Let's get you started with your project!"))
-    const projectName = await input({
-      message: "What is the name of your project?",
-    })
-    const spinner = ora(`Creating project ${projectName}...`).start()
-    setTimeout(() => {
-      spinner.suffixText = " done"
-      spinner.succeed()
-    }, 2000)
-  })
+program.command("init").description("initialize a new project").action(init)
 
 program.parse()
+
+async function init() {
+  console.log(chalk.green("👋 Welcome to PageZERO CLI"))
+  console.log(chalk.green("🚀 Let's get you started with your project!"))
+  const projectName = await input({
+    message: "What is the name of your project?",
+  })
+  const spinner = ora(`Creating project ${projectName}...`).start()
+  setTimeout(() => {
+    spinner.suffixText = " done"
+    spinner.succeed()
+  }, 2000)
+}
