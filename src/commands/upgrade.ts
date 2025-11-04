@@ -3,7 +3,7 @@ import boxen from "boxen"
 import { $, file } from "bun"
 import chalk from "chalk"
 import logSymbols from "log-symbols"
-import ora from "ora"
+import { log } from "../utils"
 
 export async function upgrade() {
   console.log(
@@ -43,19 +43,15 @@ export async function upgrade() {
     return
   }
 
-  const clonePagezeroSpinner = ora(`downloading latest PageZERO stack`).start()
-  await $`git clone --depth 1 https://github.com/pagezero-dev/pagezero.git pagezero-latest`.quiet()
-  clonePagezeroSpinner.succeed()
+  await log(`downloading latest PageZERO stack`, () =>
+    $`git clone --depth 1 https://github.com/pagezero-dev/pagezero.git pagezero-latest`.quiet(),
+  )
 
-  const copyPagezeroSpinner = ora(
-    `copying PageZERO stack to project directory`,
-  ).start()
-  await $`rsync -a --exclude=".git" ./pagezero-latest/ ./`.quiet()
-  copyPagezeroSpinner.succeed()
+  await log(`copying PageZERO stack to project directory`, () =>
+    $`rsync -a --exclude=".git" ./pagezero-latest/ ./`.quiet(),
+  )
 
-  const cleanupSpinner = ora(`cleaning up`).start()
-  await $`rm -rf pagezero-latest`.quiet()
-  cleanupSpinner.succeed()
+  await log(`cleaning up`, () => $`rm -rf pagezero-latest`.quiet())
 
   console.log(chalk.green("PageZERO stack upgraded successfully"))
   console.log(chalk.green.bold("Please review the changes through a git diff"))
