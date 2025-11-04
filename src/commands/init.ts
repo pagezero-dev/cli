@@ -1,7 +1,7 @@
 import { input } from "@inquirer/prompts"
 import { $, file, write } from "bun"
 import chalk from "chalk"
-import { log } from "../utils"
+import { spinner } from "../utils"
 
 export async function init() {
   // Welcome
@@ -12,25 +12,25 @@ export async function init() {
   const projectName = await input({
     message: "What is the name of your project?",
   })
-  await log(
+  await spinner(
     `Running: bun create pagezero-dev/pagezero --no-install ${projectName}`,
     () =>
       $`bun create pagezero-dev/pagezero --no-install ${projectName}`.quiet(),
   )
 
   // Install dependencies
-  await log(`Running: bun install`, () =>
+  await spinner(`Running: bun install`, () =>
     $`bun install`.quiet().cwd(projectName),
   )
 
   // Run setup script
-  await log(`Running: bun run setup`, () =>
+  await spinner(`Running: bun run setup`, () =>
     $`bun run setup`.quiet().cwd(projectName),
   )
 
   // Update wrangler.json
   try {
-    await log(`Updating wrangler.json`, async () => {
+    await spinner(`Updating wrangler.json`, async () => {
       const wranglerJson = await file(`${projectName}/wrangler.json`).json()
       wranglerJson.name = projectName
       wranglerJson.d1_databases[0].database_name = `${projectName}-development`

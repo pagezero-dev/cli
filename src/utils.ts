@@ -1,6 +1,6 @@
 import ora, { type Ora } from "ora"
 
-export async function log(
+export async function spinner(
   message: string,
   fn: (spinner: Ora) => Promise<unknown>,
 ) {

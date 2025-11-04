@@ -3,7 +3,7 @@ import boxen from "boxen"
 import { $, file } from "bun"
 import chalk from "chalk"
 import logSymbols from "log-symbols"
-import { log } from "../utils"
+import { spinner } from "../utils"
 
 export async function upgrade() {
   console.log(
@@ -43,15 +43,15 @@ export async function upgrade() {
     return
   }
 
-  await log(`downloading latest PageZERO stack`, () =>
+  await spinner(`downloading latest PageZERO stack`, () =>
     $`git clone --depth 1 https://github.com/pagezero-dev/pagezero.git pagezero-latest`.quiet(),
   )
 
-  await log(`copying PageZERO stack to project directory`, () =>
+  await spinner(`copying PageZERO stack to project directory`, () =>
     $`rsync -a --exclude=".git" ./pagezero-latest/ ./`.quiet(),
   )
 
-  await log(`cleaning up`, () => $`rm -rf pagezero-latest`.quiet())
+  await spinner(`cleaning up`, () => $`rm -rf pagezero-latest`.quiet())
 
   console.log(chalk.green("PageZERO stack upgraded successfully"))
   console.log(chalk.green.bold("Please review the changes through a git diff"))
