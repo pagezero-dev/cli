@@ -6,7 +6,8 @@
     "pagezero": "./bin/pagezero.ts"
   },
   "files": [
-    "bin/"
+    "bin/",
+    "src/"
   ],
   "engines": {
     "bun": ">=1.3.1"
