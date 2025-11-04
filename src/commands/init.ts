@@ -29,27 +29,20 @@ export async function init() {
   )
 
   // Update wrangler.json
-  try {
-    await spinner(`Updating wrangler.json`, async () => {
-      const wranglerJson = await file(`${projectName}/wrangler.json`).json()
-      wranglerJson.name = projectName
-      wranglerJson.d1_databases[0].database_name = `${projectName}-development`
-      wranglerJson.env.production.d1_databases[0].database_name = `${projectName}-production`
-      wranglerJson.env.preview.d1_databases[0].database_name = `${projectName}-preview`
-      wranglerJson.env.test.d1_databases[0].database_name = `${projectName}-test`
-      wranglerJson.env.production.d1_databases[0].database_id = "<DATABASE_ID>"
-      wranglerJson.env.preview.d1_databases[0].database_id = "<DATABASE_ID>"
-      await write(
-        `${projectName}/wrangler.json`,
-        JSON.stringify(wranglerJson, null, 2),
-      )
-    })
-  } catch (error) {
-    console.error(chalk.yellow("Issue with updating wrangler.json"))
-    if (error instanceof Error) {
-      console.error(chalk.yellow(error.message))
-    }
-  }
+  await spinner(`Updating wrangler.json`, async () => {
+    const wranglerJson = await file(`${projectName}/wrangler.json`).json()
+    wranglerJson.name = projectName
+    wranglerJson.d1_databases[0].database_name = `${projectName}-development`
+    wranglerJson.env.production.d1_databases[0].database_name = `${projectName}-production`
+    wranglerJson.env.preview.d1_databases[0].database_name = `${projectName}-preview`
+    wranglerJson.env.test.d1_databases[0].database_name = `${projectName}-test`
+    wranglerJson.env.production.d1_databases[0].database_id = "<DATABASE_ID>"
+    wranglerJson.env.preview.d1_databases[0].database_id = "<DATABASE_ID>"
+    await write(
+      `${projectName}/wrangler.json`,
+      JSON.stringify(wranglerJson, null, 2),
+    )
+  })
 
   // Done
   console.log(chalk.green("🎉 Done! Your project is ready to go."))
