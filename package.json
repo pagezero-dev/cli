@@ -30,7 +30,8 @@
   "scripts": {
     "check": "biome check",
     "check:fix": "biome check --write",
-    "check:types": "tsc"
+    "check:types": "tsc",
+    "git:clean": "git branch -l | grep -v 'main' | xargs git branch -D"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.3",
