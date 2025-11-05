@@ -15,14 +15,11 @@ export async function init({ powerup }: { powerup?: boolean }) {
   if (powerup) {
     await spinner("downloading pagezero powerup edition", async () => {
       await $`git clone --depth 1 https://github.com/pagezero-dev/powerup.git ${projectName}`.quiet()
-      await $`rm -rf .git`.quiet().cwd(projectName)
     })
   } else {
-    await spinner(
-      `running: bun create pagezero-dev/pagezero --no-install ${projectName}`,
-      () =>
-        $`bun create pagezero-dev/pagezero --no-install ${projectName}`.quiet(),
-    )
+    await spinner("downloading pagezero", async () => {
+      await $`git clone --depth 1 https://github.com/pagezero-dev/pagezero.git ${projectName}`.quiet()
+    })
   }
 
   // Install dependencies
@@ -49,6 +46,14 @@ export async function init({ powerup }: { powerup?: boolean }) {
       `${projectName}/wrangler.json`,
       JSON.stringify(wranglerJson, null, 2),
     )
+  })
+
+  // Initialize git repository
+  await spinner("initializing fresh git repository", async () => {
+    await $`rm -rf .git`.quiet().cwd(projectName)
+    await $`git init`.quiet().cwd(projectName)
+    await $`git add .`.quiet().cwd(projectName)
+    await $`git commit -m "Initial commit"`.quiet().cwd(projectName)
   })
 
   // Done
