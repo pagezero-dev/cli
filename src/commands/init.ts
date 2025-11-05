@@ -19,24 +19,24 @@ export async function init({ powerup }: { powerup?: boolean }) {
     })
   } else {
     await spinner(
-      `Running: bun create pagezero-dev/pagezero --no-install ${projectName}`,
+      `running: bun create pagezero-dev/pagezero --no-install ${projectName}`,
       () =>
         $`bun create pagezero-dev/pagezero --no-install ${projectName}`.quiet(),
     )
   }
 
   // Install dependencies
-  await spinner(`Running: bun install`, () =>
+  await spinner(`running: bun install`, () =>
     $`bun install`.quiet().cwd(projectName),
   )
 
   // Run setup script
-  await spinner(`Running: bun run setup`, () =>
+  await spinner(`running: bun run setup`, () =>
     $`bun run setup`.quiet().cwd(projectName),
   )
 
   // Update wrangler.json
-  await spinner(`Updating wrangler.json`, async () => {
+  await spinner(`updating wrangler.json`, async () => {
     const wranglerJson = await file(`${projectName}/wrangler.json`).json()
     wranglerJson.name = projectName
     wranglerJson.d1_databases[0].database_name = `${projectName}-development`
