@@ -54,6 +54,7 @@ export async function init({ powerup }: { powerup?: boolean }) {
     await $`git init`.quiet().cwd(projectName)
     await $`git add .`.quiet().cwd(projectName)
     await $`git commit -m "Initial commit"`.quiet().cwd(projectName)
+    await $`git branch -m master main`.quiet().cwd(projectName)
   })
 
   // Done
