@@ -60,5 +60,5 @@ export async function init({ powerup }: { powerup?: boolean }) {
   // Done
   console.log(chalk.green("🎉 Done! Your project is ready to go."))
   console.log(chalk.green.bold(`cd ${projectName}`))
-  console.log(chalk.green.bold("bun run dev"))
+  console.log(chalk.green.bold("bun dev"))
 }
