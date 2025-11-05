@@ -3,7 +3,7 @@ import { $, file, write } from "bun"
 import chalk from "chalk"
 import { spinner } from "../utils"
 
-export async function init() {
+export async function init({ powerup }: { powerup?: boolean }) {
   // Welcome
   console.log(chalk.green("👋 Welcome to PageZERO CLI"))
   console.log(chalk.green("🚀 Let's get you started with your project!"))
@@ -12,24 +12,31 @@ export async function init() {
   const projectName = await input({
     message: "What is the name of your project?",
   })
-  await spinner(
-    `Running: bun create pagezero-dev/pagezero --no-install ${projectName}`,
-    () =>
-      $`bun create pagezero-dev/pagezero --no-install ${projectName}`.quiet(),
-  )
+  if (powerup) {
+    await spinner("downloading pagezero powerup edition", async () => {
+      await $`git clone --depth 1 https://github.com/pagezero-dev/powerup.git ${projectName}`.quiet()
+      await $`rm -rf .git`.quiet().cwd(projectName)
+    })
+  } else {
+    await spinner(
+      `running: bun create pagezero-dev/pagezero --no-install ${projectName}`,
+      () =>
+        $`bun create pagezero-dev/pagezero --no-install ${projectName}`.quiet(),
+    )
+  }
 
   // Install dependencies
-  await spinner(`Running: bun install`, () =>
+  await spinner(`running: bun install`, () =>
     $`bun install`.quiet().cwd(projectName),
   )
 
   // Run setup script
-  await spinner(`Running: bun run setup`, () =>
+  await spinner(`running: bun run setup`, () =>
     $`bun run setup`.quiet().cwd(projectName),
   )
 
   // Update wrangler.json
-  await spinner(`Updating wrangler.json`, async () => {
+  await spinner(`updating wrangler.json`, async () => {
     const wranglerJson = await file(`${projectName}/wrangler.json`).json()
     wranglerJson.name = projectName
     wranglerJson.d1_databases[0].database_name = `${projectName}-development`
