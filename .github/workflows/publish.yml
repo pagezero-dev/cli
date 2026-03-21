@@ -9,8 +9,9 @@ permissions:
   contents: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
-  cancel-in-progress: true
+  # One publish at a time per tag; do not cancel mid-publish if a run is retried.
+  group: ${{ github.workflow }}-${{ github.event.release.tag_name }}
+  cancel-in-progress: false
 
 jobs:
   publish:
@@ -37,6 +38,11 @@ jobs:
         run: bun pm version from-git --no-git-tag-version
 
       - name: 🚀 Publish
-        run: bun publish
+        run: |
+          if [ "${{ github.event.release.prerelease }}" = "true" ]; then
+            bun publish --tag next
+          else
+            bun publish
+          fi
         env:
           NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
