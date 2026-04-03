@@ -8,14 +8,8 @@ program
   .description("PageZERO CLI")
   .option("-h, --help", "output usage information")
 
-program
-  .command("init")
-  .description("initialize a new project")
-  .action(init)
+program.command("init").description("initialize a new project").action(init)
 
-program
-  .command("upgrade")
-  .description("upgrade pagezero stack")
-  .action(upgrade)
+program.command("upgrade").description("upgrade pagezero stack").action(upgrade)
 
 program.parse()
