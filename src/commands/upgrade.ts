@@ -5,7 +5,7 @@ import chalk from "chalk"
 import logSymbols from "log-symbols"
 import { spinner } from "../utils"
 
-export async function upgrade({ powerup }: { powerup?: boolean }) {
+export async function upgrade() {
   console.log(
     chalk.yellow(
       boxen(
@@ -43,15 +43,9 @@ export async function upgrade({ powerup }: { powerup?: boolean }) {
     return
   }
 
-  if (powerup) {
-    await spinner(`downloading latest PageZERO PowerUP edition`, () =>
-      $`git clone --depth 1 https://github.com/pagezero-dev/powerup.git pagezero-latest`.quiet(),
-    )
-  } else {
-    await spinner(`downloading latest PageZERO stack`, () =>
-      $`git clone --depth 1 https://github.com/pagezero-dev/pagezero.git pagezero-latest`.quiet(),
-    )
-  }
+  await spinner(`downloading latest PageZERO stack`, () =>
+    $`git clone --depth 1 https://github.com/pagezero-dev/pagezero.git pagezero-latest`.quiet(),
+  )
 
   await spinner(`copying PageZERO stack to project directory`, () =>
     $`rsync -a --exclude=".git" ./pagezero-latest/ ./`.quiet(),

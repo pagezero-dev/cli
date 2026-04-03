@@ -11,13 +11,11 @@ program
 program
   .command("init")
   .description("initialize a new project")
-  .option("-p, --powerup", "use PowerUP edition")
   .action(init)
 
 program
   .command("upgrade")
   .description("upgrade pagezero stack")
-  .option("-p, --powerup", "use PowerUP edition")
   .action(upgrade)
 
 program.parse()
