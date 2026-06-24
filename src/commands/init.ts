@@ -1,5 +1,5 @@
 import { input } from "@inquirer/prompts"
-import { $, file, write } from "bun"
+import { $ } from "bun"
 import chalk from "chalk"
 import { spinner } from "../utils"
 
@@ -26,21 +26,10 @@ export async function init() {
     $`bun run setup`.quiet().cwd(projectName),
   )
 
-  // Update wrangler.json
-  await spinner(`updating wrangler.json`, async () => {
-    const wranglerJson = await file(`${projectName}/wrangler.json`).json()
-    wranglerJson.name = projectName
-    wranglerJson.d1_databases[0].database_name = `${projectName}-development`
-    wranglerJson.env.production.d1_databases[0].database_name = `${projectName}-production`
-    wranglerJson.env.preview.d1_databases[0].database_name = `${projectName}-preview`
-    wranglerJson.env.test.d1_databases[0].database_name = `${projectName}-test`
-    wranglerJson.env.production.d1_databases[0].database_id = "<DATABASE_ID>"
-    wranglerJson.env.preview.d1_databases[0].database_id = "<DATABASE_ID>"
-    await write(
-      `${projectName}/wrangler.json`,
-      JSON.stringify(wranglerJson, null, 2),
-    )
-  })
+  // Configure wrangler.json
+  await spinner(`configuring wrangler.json`, async () =>
+    $`bun run setup:wrangler`.quiet().cwd(projectName),
+  )
 
   // Initialize git repository
   await spinner("initializing fresh git repository", async () => {
