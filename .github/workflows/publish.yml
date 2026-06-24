@@ -40,9 +40,7 @@ jobs:
       - name: 🚀 Publish
         run: |
           if [ "${{ github.event.release.prerelease }}" = "true" ]; then
-            bun publish --tag next
+            npm publish --tag next
           else
-            bun publish
+            npm publish
           fi
-        env:
-          NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
