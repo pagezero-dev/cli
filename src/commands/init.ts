@@ -27,9 +27,10 @@ export async function init() {
   )
 
   // Configure wrangler.json
-  await spinner(`configuring wrangler.json`, async () =>
-    $`bun run setup:wrangler`.quiet().cwd(projectName),
-  )
+  await spinner(`configuring wrangler.json`, async () => {
+    await $`bun run setup:wrangler`.quiet().cwd(projectName)
+    await $`bun run check:fix`.quiet().cwd(projectName)
+  })
 
   // Initialize git repository
   await spinner("initializing fresh git repository", async () => {
