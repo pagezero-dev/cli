@@ -48,7 +48,7 @@ export async function upgrade() {
   )
 
   await spinner(`syncing PageZERO stack with project directory`, () =>
-    $`rsync -a --delete --exclude=".git" --exclude="node_modules" ./pagezero-latest/ ./`.quiet(),
+    $`rsync -a --delete --exclude=".git" --exclude="node_modules" --exclude="pagezero-latest" ./pagezero-latest/ ./`.quiet(),
   )
 
   await spinner(`cleaning up`, () => $`rm -rf pagezero-latest`.quiet())
