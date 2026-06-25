@@ -47,8 +47,8 @@ export async function upgrade() {
     $`git clone --depth 1 https://github.com/pagezero-dev/pagezero.git pagezero-latest`.quiet(),
   )
 
-  await spinner(`copying PageZERO stack to project directory`, () =>
-    $`rsync -a --exclude=".git" ./pagezero-latest/ ./`.quiet(),
+  await spinner(`syncing PageZERO stack with project directory`, () =>
+    $`rsync -a --delete --exclude=".git" --exclude="node_modules" ./pagezero-latest/ ./`.quiet(),
   )
 
   await spinner(`cleaning up`, () => $`rm -rf pagezero-latest`.quiet())
