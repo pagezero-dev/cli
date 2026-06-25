@@ -9,7 +9,11 @@ export async function upgrade() {
   console.log(
     chalk.yellow(
       boxen(
-        "Ugrade command is primitive. It will overwrite your existing \nproject files with the latest version of the PageZERO stack. \nAfterwards please review the changes through a git diff.",
+        "Upgrade syncs your project with the latest PageZERO stack.\n\n" +
+          "• Existing stack files will be overwritten\n" +
+          "• Files removed from the stack will be deleted from your project\n" +
+          "• node_modules and .git are left untouched\n\n" +
+          "Review the result with git diff before committing.",
         { padding: 1, title: "WARNING", titleAlignment: "center" },
       ),
     ),
@@ -47,8 +51,8 @@ export async function upgrade() {
     $`git clone --depth 1 https://github.com/pagezero-dev/pagezero.git pagezero-latest`.quiet(),
   )
 
-  await spinner(`copying PageZERO stack to project directory`, () =>
-    $`rsync -a --exclude=".git" ./pagezero-latest/ ./`.quiet(),
+  await spinner(`syncing PageZERO stack with project directory`, () =>
+    $`rsync -a --delete --exclude=".git" --exclude="node_modules" --exclude="pagezero-latest" ./pagezero-latest/ ./`.quiet(),
   )
 
   await spinner(`cleaning up`, () => $`rm -rf pagezero-latest`.quiet())
