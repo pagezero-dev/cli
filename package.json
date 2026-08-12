@@ -3,7 +3,7 @@
   "description": "A CLI tool for PageZERO stack",
   "type": "module",
   "bin": {
-    "pagezero": "./bin/pagezero.ts"
+    "pagezero": "bin/pagezero.ts"
   },
   "files": [
     "bin/",
