@@ -41,26 +41,3 @@ jobs:
 
       - name: 💎 Quality check
         run: bun run check
-
-  types:
-    name: ʦ Types check
-    runs-on: ubuntu-latest
-    steps:
-      - name: 📥 Checkout repo
-        uses: actions/checkout@v5
-
-      - name: 🟢 Setup node
-        uses: actions/setup-node@v5
-        with:
-          node-version-file: .tool-versions
-
-      - name: 🥟 Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version-file: .tool-versions
-
-      - name: 📦 Install dependencies
-        run: bun install --frozen-lockfile
-
-      - name: ʦ Types check
-        run: bun run check:types

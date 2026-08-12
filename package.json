@@ -28,9 +28,8 @@
   },
   "homepage": "https://github.com/pagezero-dev/cli#readme",
   "scripts": {
-    "check": "oxlint && oxfmt --check",
-    "check:fix": "oxlint --fix && oxfmt",
-    "check:types": "tsc",
+    "check": "oxfmt --check && oxlint && tsc",
+    "check:fix": "oxfmt && oxlint --fix ",
     "git:clean": "git branch -l | grep -v 'main' | xargs git branch -D"
   },
   "devDependencies": {
