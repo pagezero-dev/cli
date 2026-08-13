@@ -3,10 +3,5 @@
   "plugins": ["typescript", "unicorn", "oxc"],
   "categories": {
     "suspicious": "warn"
-  },
-  "rules": {
-    "unicorn/consistent-function-scoping": "off",
-    "unicorn/no-array-sort": "off",
-    "no-shadow": "off"
   }
 }

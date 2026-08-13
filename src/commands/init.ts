@@ -1,6 +1,7 @@
 import { input } from "@inquirer/prompts"
 import { $ } from "bun"
 import chalk from "chalk"
+
 import { spinner } from "../utils"
 
 export async function init() {
@@ -17,14 +18,10 @@ export async function init() {
   })
 
   // Install dependencies
-  await spinner(`running: bun install`, () =>
-    $`bun install`.quiet().cwd(projectName),
-  )
+  await spinner(`running: bun install`, () => $`bun install`.quiet().cwd(projectName))
 
   // Run setup script
-  await spinner(`running: bun run setup`, () =>
-    $`bun run setup`.quiet().cwd(projectName),
-  )
+  await spinner(`running: bun run setup`, () => $`bun run setup`.quiet().cwd(projectName))
 
   // Configure wrangler.json
   await spinner(`configuring wrangler.json`, async () => {
