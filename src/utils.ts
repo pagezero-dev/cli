@@ -1,12 +1,12 @@
 import ora, { type Ora } from "ora"
 
-export async function spinner(message: string, fn: (spinner: Ora) => Promise<unknown>) {
-  const spinner = ora(message).start()
+export async function spinner(message: string, fn: (oraSpinner: Ora) => Promise<unknown>) {
+  const oraSpinner = ora(message).start()
   try {
-    await fn(spinner)
-    spinner.succeed()
+    await fn(oraSpinner)
+    oraSpinner.succeed()
   } catch (error) {
-    spinner.fail()
+    oraSpinner.fail()
     throw error
   }
 }
