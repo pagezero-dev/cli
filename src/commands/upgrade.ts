@@ -3,6 +3,7 @@ import boxen from "boxen"
 import { $, file } from "bun"
 import chalk from "chalk"
 import logSymbols from "log-symbols"
+
 import { spinner } from "../utils"
 
 export async function upgrade() {

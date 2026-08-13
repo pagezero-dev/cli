@@ -1,9 +1,6 @@
 import ora, { type Ora } from "ora"
 
-export async function spinner(
-  message: string,
-  fn: (spinner: Ora) => Promise<unknown>,
-) {
+export async function spinner(message: string, fn: (spinner: Ora) => Promise<unknown>) {
   const spinner = ora(message).start()
   try {
     await fn(spinner)
