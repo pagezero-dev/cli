@@ -29,7 +29,7 @@
   "homepage": "https://github.com/pagezero-dev/cli#readme",
   "scripts": {
     "check": "oxfmt --check && oxlint && tsc",
-    "check:fix": "oxfmt && oxlint --fix ",
+    "check:fix": "oxfmt && oxlint --fix",
     "git:clean": "git branch -l | grep -v 'main' | xargs git branch -D"
   },
   "devDependencies": {
