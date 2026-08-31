@@ -15,4 +15,12 @@ program
   .option("-y, --yes", "skip confirmation prompt")
   .action(upgrade)
 
-program.parse()
+try {
+  await program.parseAsync()
+} catch (error) {
+  if (error instanceof Error && error.name === "ExitPromptError") {
+    process.exit(130)
+  }
+
+  throw error
+}
