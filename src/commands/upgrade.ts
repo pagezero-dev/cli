@@ -6,7 +6,7 @@ import logSymbols from "log-symbols"
 
 import { spinner } from "../utils"
 
-export async function upgrade() {
+export async function upgrade(options: { yes?: boolean }) {
   console.log(
     chalk.yellow(
       boxen(
@@ -20,9 +20,11 @@ export async function upgrade() {
     ),
   )
 
-  const shouldProceed = await confirm({
-    message: "Do you want to proceed?",
-  })
+  const shouldProceed =
+    options.yes ||
+    (await confirm({
+      message: "Do you want to proceed?",
+    }))
 
   if (!shouldProceed) {
     return

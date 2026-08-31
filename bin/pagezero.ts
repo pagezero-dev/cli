@@ -9,6 +9,10 @@ program.description("PageZERO CLI").option("-h, --help", "output usage informati
 
 program.command("init").description("initialize a new project").action(init)
 
-program.command("upgrade").description("upgrade pagezero stack").action(upgrade)
+program
+  .command("upgrade")
+  .description("upgrade pagezero stack")
+  .option("-y, --yes", "skip confirmation prompt")
+  .action(upgrade)
 
 program.parse()
